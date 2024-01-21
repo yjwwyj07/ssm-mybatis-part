@@ -1,5 +1,6 @@
 import com.atguigu.mapper.EmployeeMapper;
 import com.atguigu.pojo.Employee;
+import com.atguigu.pojo.Student;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -40,6 +41,29 @@ public class MyBatisTest {
 
         System.out.println("employee = " + employee);
 
+        // 4.关闭SqlSession
+        session.commit(); //提交事务 [DQL不需要,其他需要]
+        session.close(); //关闭会话
+
+    }
+    @Test
+    public void test_02() throws IOException {
+
+        // 1.创建SqlSessionFactory对象
+        // ①声明Mybatis全局配置文件的路径
+        String mybatisConfigFilePath = "mybatis-config.xml";
+
+        // ②以输入流的形式加载Mybatis配置文件
+        InputStream inputStream = Resources.getResourceAsStream(mybatisConfigFilePath);
+
+        // ③基于读取Mybatis配置文件的输入流创建SqlSessionFactory对象
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        // 2.使用SqlSessionFactory对象开启一个会话
+        SqlSession session = sessionFactory.openSession();
+
+        Student student = session.selectOne("mybatis.student.selectStudent", 1);
+        System.out.println("student = " + student);
         // 4.关闭SqlSession
         session.commit(); //提交事务 [DQL不需要,其他需要]
         session.close(); //关闭会话
