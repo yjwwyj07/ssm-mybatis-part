@@ -15,5 +15,5 @@ public interface EmployeeMapper {
      * @return 员工实体对象
      */
     Employee selectEmployee(Integer empId);
-    
+    Employee queryById(Integer empId);
 }
