@@ -23,4 +23,60 @@
         t_emp where emp_id = ${empId}
 <!--        select emp_id empId,emp_name empName, emp_salary empSalary from t_emp where emp_id = 1-->
     </select>
+    <delete id="deleteById">
+        delete from t_emp where emp_id=#{id};
+    </delete>
+    <select id="queryBySalary" resultType="com.atguigu.pojo.Employee">
+        select emp_id empId,emp_name empName, emp_salary empSalary from
+        t_emp where emp_salary=#{salary};
+    </select>
+    <!--自增长主键回显，无视id即可
+        useGeneratedKeys 获得自动增长的主键值
+        keyColumn database 主键列的值
+        keyProperty 接收值的对象属性-->
+    <insert id="insertEmp" useGeneratedKeys="true" keyColumn="emp_id" keyProperty="empId">
+        insert into t_emp (emp_name,emp_salary) values(#{empName},#{empSalary});
+    </insert>
+
+    <!--emp_id database 列名 empId 对象属性名对应
+        可以修改设置mapUnderscoreToCamelCase自动映射
+            select * from t_emp where emp_name=#{name} and emp_salary = #{salary}-->
+    <select id="queryByNameAndSalary" resultType="com.atguigu.pojo.Employee">
+        select emp_id empId , emp_name empName, emp_salary empSalary from
+        t_emp where emp_name=#{name} and emp_salary = #{salary}
+    </select>
+
+    <insert id="insertEmpMap" >
+        insert into t_emp (emp_name,emp_salary) values(#{name},#{salary});
+    </insert>
+
+    <delete id="deleteByEmpId">
+        delete from t_emp where emp_id=#{id}
+    </delete>
+
+    <select id="queryNameById" resultType="java.lang.String">
+        select emp_name from t_emp where emp_id=#{id}
+    </select>
+    <select id="querySalaryById" resultType="java.lang.Double">
+        select emp_salary from t_emp where emp_id=#{id}
+    </select>
+
+    <!--key->列 value->值-->
+    <select id="selectEmpNameAndMaxSalary" resultType="map">
+        SELECT
+        emp_name empName,
+        emp_salary empSalary,
+        (SELECT AVG(emp_salary) FROM t_emp) avgSalary
+        FROM t_emp WHERE emp_salary=(
+        SELECT MAX(emp_salary) FROM t_emp
+        )
+    </select>
+    <!--返回值是list，只需指定泛型-->
+    <select id="queryNameBySalary" resultType="String">
+        select emp_name from t_emp where emp_salary > #{salary}
+    </select>
+
+    <select id="queryAll" resultType="employee">
+        select * from t_emp;
+    </select>
 </mapper>

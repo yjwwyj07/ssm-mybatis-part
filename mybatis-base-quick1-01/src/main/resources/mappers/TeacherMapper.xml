@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.mapper.TeacherMapper">
+
+    <!--order="BEFORE|AFTER" resultType=返回值类型 keyProperty=查询结果对应哪个对象属性-->
+    <insert id="insertTeacher">
+        <selectKey order="BEFORE" resultType="string" keyProperty="tId">
+            select replace(UUID(),'-','')
+        </selectKey>
+        insert into teacher (t_id,t_name) value(#{tId},#{tName})
+    </insert>
+    <!--多表查询时无法映射 使用resultMap自定义映射
+    Order                       database
+        OrderItem orderItem
+                     item_id    item_id 不会自动查找对应类型
+    -->
+    <resultMap id="tMap" type="teacher">
+        <id column="t_id" property="tId"/>
+        <result column="t_name" property="tName"/>
+    </resultMap>
+    <select id="queryById" resultMap="tMap">
+        select * from teacher where t_id=#{tId}
+    </select>
+</mapper>
