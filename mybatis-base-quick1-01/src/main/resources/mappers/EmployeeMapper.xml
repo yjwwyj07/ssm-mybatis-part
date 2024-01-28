@@ -79,4 +79,9 @@
     <select id="queryAll" resultType="employee">
         select * from t_emp;
     </select>
+
+    <update id="update">
+        UPDATE t_emp SET emp_name=#{empName}, emp_salary=#{empSalary}
+        WHERE emp_id=#{empId}
+    </update>
 </mapper>

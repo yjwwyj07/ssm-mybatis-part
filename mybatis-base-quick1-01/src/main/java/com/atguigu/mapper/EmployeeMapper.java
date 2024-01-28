@@ -41,5 +41,5 @@ public interface EmployeeMapper {
     List<String> queryNameBySalary(Double salary);
 
     List<Employee> queryAll();
-
+    int update(Employee employee);
 }

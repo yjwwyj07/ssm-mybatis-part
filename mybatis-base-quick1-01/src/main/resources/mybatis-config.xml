@@ -4,8 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
+
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <!-- environments表示配置Mybatis的开发环境，可以配置多个环境，在众多具体环境中，使用default属性指定实际运行时使用的环境。default属性的取值是environment标签的id属性的值。 -->
     <typeAliases>
