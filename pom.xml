@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>mybatis-base-quick1-01</module>
+        <module>mybatis-high-multitable-05</module>
     </modules>
 
     <properties>
