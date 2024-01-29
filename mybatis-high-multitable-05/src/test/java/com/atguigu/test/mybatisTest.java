@@ -1,6 +1,8 @@
 package com.atguigu.test;
 
+import com.atguigu.mapper.CustomerMapper;
 import com.atguigu.mapper.OrderMapper;
+import com.atguigu.pojo.Customer;
 import com.atguigu.pojo.Order;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 public class mybatisTest {
     private SqlSession session;
@@ -29,6 +32,16 @@ public class mybatisTest {
         System.out.println("order = " + order);
         System.out.println(order.getCustomer());
 
+    }
+    @Test
+    public void testToMulti(){
+        CustomerMapper mapper = session.getMapper(CustomerMapper.class);
+        List<Customer> customers = mapper.queryList();
+        System.out.println("customers = " + customers);
+        for (Customer customer:customers) {
+            List<Order> orderList = customer.getOrderList();
+            System.out.println("orderList = " + orderList);
+        }
     }
 
 
