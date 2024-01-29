@@ -11,6 +11,7 @@
     <modules>
         <module>mybatis-base-quick1-01</module>
         <module>mybatis-high-multitable-05</module>
+        <module>mybatis-high-dnysql-06</module>
     </modules>
 
     <properties>
