@@ -18,4 +18,85 @@
         </if>
         </where>
     </select>
+
+    <select id="queryTrim" resultType="employee">
+
+        select * from t_emp
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="name != null">
+                emp_name=#{name} and
+            </if>
+            <if test="salary != null and salary &gt; 100 ">
+                emp_salary=#{salary}
+            </if>
+        </trim>
+    </select>
+
+    <update id="update">
+        update t_emp
+        <set>
+            <if test="empName!=null">
+                emp_name=#{empName} ,
+            </if>
+            <if test="empSalary">
+                emp_salary=#{empSalary}
+            </if>
+        </set>
+        where emp_id = #{empId}
+    </update>
+    <!--<update id="update">
+        update t_emp
+        <trim prefix="set" suffixOverrides=",">
+            <if test="empName!=null">
+                emp_name=#{empName} ,
+            </if>
+            <if test="empSalary">
+                emp_salary=#{empSalary}
+            </if>
+        </trim>
+        where emp_id = #{empId}
+    </update>-->
+    <select id="queryChoose" resultType="employee">
+        select * from t_emp
+        where
+            <choose>
+                <when test="name != null">
+                    emp_name=#{name}
+                </when>
+                <when test="salary != null">
+                    and emp_salary=#{salary}
+                </when>
+                <otherwise>1=1</otherwise>
+            </choose>
+    </select>
+
+    <select id="queryBatch" resultType="employee">
+        select * from t_emp
+            where emp_id in
+            <foreach collection="ids" open="(" separator="," close=")" item="id">
+                #{id}
+            </foreach>
+    </select>
+
+    <delete id="deleteBatch">
+        delete from t_emp where emp_id in
+        <foreach collection="ids" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insertBatch">
+        insert into t_emp (emp_name,emp_salary)
+            values
+            <foreach collection="list" separator="," item="employee">
+                (#{employee.empName},#{employee.empSalary})
+            </foreach>
+    </insert>
+
+    <update id="updateBatch">
+        <foreach collection="list" item="emp">
+            update t_emp set emp_name=#{emp.empName}, emp_salary = #{emp.empSalary}
+            where emp_id=#{emp.empId}
+        </foreach>
+    </update>
 </mapper>

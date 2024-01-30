@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MybatisTest {
@@ -26,8 +27,11 @@ public class MybatisTest {
     @Test
     public void test_One(){
         EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
-        List<Employee> list = mapper.query(null,700.0);
-        System.out.println("list = " + list);
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(3);
+        arrayList.add(5);
+        int i = mapper.deleteBatch(arrayList);
+        System.out.println("list = " + i);
 
     }
 
