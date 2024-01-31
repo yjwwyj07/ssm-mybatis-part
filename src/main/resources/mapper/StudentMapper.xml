@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="generator.com.atguigu.pojo.Student">
+            <id property="sid" column="sid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sid,sname
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from student
+        where  sid = #{sid,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from student
+        where  sid = #{sid,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="sid" keyProperty="sid" parameterType="generator.com.atguigu.pojo.Student" useGeneratedKeys="true">
+        insert into student
+        ( sid,sname)
+        values (#{sid,jdbcType=INTEGER},#{sname,jdbcType=VARBINARY})
+    </insert>
+    <insert id="insertSelective" keyColumn="sid" keyProperty="sid" parameterType="generator.com.atguigu.pojo.Student" useGeneratedKeys="true">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="sid != null">sid,</if>
+                <if test="sname != null">sname,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="sid != null">#{sid,jdbcType=INTEGER},</if>
+                <if test="sname != null">#{sname,jdbcType=VARBINARY},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="generator.com.atguigu.pojo.Student">
+        update student
+        <set>
+                <if test="sname != null">
+                    sname = #{sname,jdbcType=VARBINARY},
+                </if>
+        </set>
+        where   sid = #{sid,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="generator.com.atguigu.pojo.Student">
+        update student
+        set 
+            sname =  #{sname,jdbcType=VARBINARY}
+        where   sid = #{sid,jdbcType=INTEGER} 
+    </update>
+</mapper>
