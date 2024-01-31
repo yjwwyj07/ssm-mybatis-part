@@ -12,6 +12,7 @@
         <module>mybatis-base-quick1-01</module>
         <module>mybatis-high-multitable-05</module>
         <module>mybatis-high-dnysql-06</module>
+        <module>mybatis-other-extend-07</module>
     </modules>
 
     <properties>
@@ -44,6 +45,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.28</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.11</version>
         </dependency>
     </dependencies>
 </project>
